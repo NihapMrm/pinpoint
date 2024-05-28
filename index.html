@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Point</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <h1>PinPoint game</h1>
+    <div id="app" class="clues">
+        <div class="clue clue1"><span v-if="cluesRevealed >= 0">{{ currentDataset.words[0] }}</span></div>
+        <div class="clue clue2"><span v-if="cluesRevealed >= 1">{{ currentDataset.words[1] }}</span></div>
+        <div class="clue clue3"><span v-if="cluesRevealed >= 2">{{ currentDataset.words[2] }}</span></div>
+        <div class="clue clue4"><span v-if="cluesRevealed >= 3">{{ currentDataset.words[3] }}</span></div>
+        <div class="clue clue5"><span v-if="cluesRevealed >= 4">{{ currentDataset.words[4] }}</span></div>
+        <div v-if="wrongAnswers.length > 0" class="wrong-answers">
+            <span v-for="answer in wrongAnswers" :key="answer"><s>{{ answer }}</s></span>
+        </div>
+        <input type="text" class="input" v-model="userInput" @keyup.enter="checkAnswer" v-if="inputVisible">
+        <button @click="checkAnswer" v-if="inputVisible" class="submit" :disabled="isInputEmpty">Submit</button>
+        <div v-if="message" class="message">
+            <i v-if="isCorrect" class="fas fa-check-circle pass-icon"></i>
+            <i v-if="isFailed" class="fas fa-times-circle fail-icon"></i>
+            <span>{{ message }}</span>
+        </div>
+        <button @click="nextQuestion" v-if="!inputVisible" class="next">Next Question <i class="fas fa-angle-right fail-icon"></i></button>
+    </div>
+    <script src="script.js"></script>
+  
+</body>
+</html>
